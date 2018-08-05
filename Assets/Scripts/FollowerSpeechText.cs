@@ -28,6 +28,9 @@ public class FollowerSpeechText : MonoBehaviour {
     }
 	void Update () 
     {
+
+        //TODO: make this work screenspace canvas and virtual camera
+
         //Vector3 speechPos = Camera.main.WorldToScreenPoint(this.transform.position);
         //Vector3 speechPos = virtualCamera.WorldToScreenPoint(this.transform.position);
         //Vector2 speechPos = RectTransformUtility.WorldToScreenPoint(virtualCamera,gameObject.transform.position);
@@ -50,6 +53,8 @@ public class FollowerSpeechText : MonoBehaviour {
 
     public void followerToSay(string _sayThis)
     {
+        //TODO: replace with a switch
+
         StopCoroutine("textTimeOut");
 
         if (_sayThis == "Jump")// && Random.Range(0,100) > _JumpChance)

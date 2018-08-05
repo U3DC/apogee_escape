@@ -1,1 +1,0 @@
-I made these textures myself and don't wan't other people to use them, please use your own textures/textures that you own
