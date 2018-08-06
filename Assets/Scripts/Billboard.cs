@@ -6,7 +6,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Billboard : MonoBehaviour
 {
-
     [Range(0.1f, 2f)]
     public float setYnessReduceFactor;
     public static float ynessReduceFactor;
@@ -23,7 +22,7 @@ public class Billboard : MonoBehaviour
         }
         else if (reverseForward == true)
         {
-            transform.LookAt(transform.position - cameraNoY,Vector3.up);
+            transform.LookAt(transform.position - cameraNoY, Vector3.up);
         }
     }
 }

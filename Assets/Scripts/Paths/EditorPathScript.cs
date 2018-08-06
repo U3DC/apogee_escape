@@ -16,7 +16,6 @@ public class EditorPathScript : MonoBehaviour
         theArray = GetComponentsInChildren<Transform>();
         path_objs.Clear();
 
-
         foreach (Transform path_obj in theArray)
         {
             if (path_obj != this.transform)
@@ -31,7 +30,6 @@ public class EditorPathScript : MonoBehaviour
             {
                 Vector3 previous = path_objs[i - 1].position;     //previous position
                 Gizmos.DrawLine(previous, position);
-                //Gizmos.DrawWireSphere(position, 0.3f);
             }
         }
     }

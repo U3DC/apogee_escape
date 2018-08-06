@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveOnPath : MonoBehaviour 
+public class MoveOnPath : MonoBehaviour
 {
     public EditorPathScript pathToFollow;
 
@@ -15,13 +15,12 @@ public class MoveOnPath : MonoBehaviour
     Vector3 lastPosition;
     Vector3 currentPosition;
 
-	void Start () 
+    void Start()
     {
-        //pathToFollow = GameObject.Find(pathName).GetComponent<EditorPathScript>();
         lastPosition = transform.position;
-	}
-	
-	void Update () 
+    }
+
+    void Update()
     {
         float distance = Vector3.Distance(pathToFollow.path_objs[currentWaypoint].position, transform.position);
         transform.position = Vector3.MoveTowards(transform.position, pathToFollow.path_objs[currentWaypoint].position, Time.deltaTime * movementSpeed);
@@ -38,5 +37,5 @@ public class MoveOnPath : MonoBehaviour
         {
             currentWaypoint = 0;
         }
-	}
+    }
 }

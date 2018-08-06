@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class MenuSpaceBGRotate : MonoBehaviour
 {
-
     [ExecuteInEditMode]
-
     public float rotateSpeed = 0.5f;
-
 
     // Update is called once per frame
     void Update()

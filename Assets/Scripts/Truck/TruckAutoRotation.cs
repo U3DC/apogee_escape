@@ -13,7 +13,6 @@ public class TruckAutoRotation : MonoBehaviour
 
     private float wheelBaseHalved;
     public float wheelBase = 3f;
-
     public float speed = 0.1f;
 
     void Start()
@@ -22,14 +21,11 @@ public class TruckAutoRotation : MonoBehaviour
     }
     void Update()
     {
-        
         Vector3 frontWheel = Vector3.forward * wheelBaseHalved;
         Vector3 rearWheel = Vector3.forward * -wheelBaseHalved;
 
-
         frontHeightDetect = new Ray(transform.position, Vector3.down);
         rearHeightDetect = new Ray(transform.position, Vector3.down);
-
 
         if (Physics.Raycast(frontHeightDetect, out hitFront, Mathf.Infinity) || Physics.Raycast(rearHeightDetect, out hitRear, Mathf.Infinity))
         {
@@ -37,31 +33,5 @@ public class TruckAutoRotation : MonoBehaviour
             var targetRotation = Quaternion.FromToRotation(transform.up, hitAveraged) * transform.rotation;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
         }
-
-
-
-
     }
-
-
-
-
-
-    //        averageNormalDirections.Add(normal);
-    //
-    //        for (int i = 0; i < averageNormalDirections.Count; i++)
-    //        {
-    //            averageNormalDirection += averageNormalDirections[i];
-    //        }
-    //
-    //        averageNormalDirection /= averageNormalDirections.Count;
-
-
-
-
-
-
-
-
-	
 }

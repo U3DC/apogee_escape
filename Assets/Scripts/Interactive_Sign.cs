@@ -6,47 +6,45 @@ using UnityEngine.UI;
 
 public class Interactive_Sign : MonoBehaviour
 {
+    public bool showText;
+    public string signText;
+    private bool isShowingText;
+    [SerializeField]
+    private Text signTextUI;
 
-	public bool showText;
-	public string signText;
-	private bool isShowingText;
-	[SerializeField]
-	private Text signTextUI;
-	[SerializeField]
+    [SerializeField]
 
-	// Use this for initialization
+    // Use this for initialization
 	void Awake()
-	{
-		signTextUI = GameObject.Find("SignText").GetComponent<Text>();
+    {
+        signTextUI = GameObject.Find("SignText").GetComponent<Text>();
+    }
 
-	}
-	void Update()
-	{
-		if (showText == true)
-		{
-			signTextUI.text = signText;
-			isShowingText = true;
-		}
-		else if (showText == false)
-		{
-			if (isShowingText == true)
-			{
-				StartCoroutine("TextFade");
-			}
-			else if (isShowingText = false)
-			{
-				signTextUI.text = "";
+    void Update()
+    {
+        if (showText == true)
+        {
+            signTextUI.text = signText;
+            isShowingText = true;
+        }
+        else if (showText == false)
+        {
+            if (isShowingText == true)
+            {
+                StartCoroutine("TextFade");
+            }
+            else if (isShowingText = false)
+            {
+                signTextUI.text = "";
+            }
+        }
+    }
 
-			}
-		}
-	}
-
-	IEnumerator TextFade()
-	{
-		yield return new WaitForSeconds(1);
-		signTextUI.text = "";
-		isShowingText = false;
-		yield return false;
-	}
-
+    IEnumerator TextFade()
+    {
+        yield return new WaitForSeconds(1);
+        signTextUI.text = "";
+        isShowingText = false;
+        yield return false;
+    }
 }

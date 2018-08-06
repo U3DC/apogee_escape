@@ -4,10 +4,8 @@ using UnityEngine.UI;
 
 [ExecuteInEditMode]
 public class SetFontFilteringToPoint : MonoBehaviour
-
 {
     private Text[] theTexts;
-
 
     void Start ()
     {
@@ -17,6 +15,5 @@ public class SetFontFilteringToPoint : MonoBehaviour
         {
             theTexts.font.material.mainTexture.filterMode = FilterMode.Point;
         }
-            
     }
 }

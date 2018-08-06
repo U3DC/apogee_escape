@@ -46,8 +46,6 @@ public class FollowPlayer : MonoBehaviour
         mySpriteAnim = GetComponentInChildren<Animator>();//GetComponent<Animator>();
         follower = GameObject.Find("Follower");
         frame120 = 0;
-
-
     }
 
     void Update()
@@ -128,9 +126,7 @@ public class FollowPlayer : MonoBehaviour
         {
             isGrounded = false;
             mySpriteAnim.SetBool("isGrounded", false);
-
         }
-
     }
 
     void LateUpdate()
@@ -174,10 +170,7 @@ public class FollowPlayer : MonoBehaviour
             prevPos = transform.position;
             // Wait till it the end of the frame
             yield return new WaitForEndOfFrame();
-            //yield return new WaitForSeconds(0.1f);
-            // Calculate velocity: Velocity = DeltaPosition / DeltaTime
             currVel = (prevPos - transform.position) / Time.deltaTime;
-            //Debug.DrawLine(transform.position,currVel,Color.red);
         }
     }
 

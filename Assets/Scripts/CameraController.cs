@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     //camera controls
-    private Camera cam;
 
     [Header("Camera Movement")]
+    private Camera cam;
     public float smoothSpeed = 0.5f;
     public float playerFacingOffset = 2.0f;
     private Vector3 playerFacingInfluence;

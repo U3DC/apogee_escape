@@ -2,27 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FogOptional : MonoBehaviour 
+public class FogOptional : MonoBehaviour
 {
     public bool revertFogState = false;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
-    void OnPreRender () {
+    void OnPreRender()
+    {
         revertFogState = RenderSettings.fog;
         RenderSettings.fog = enabled;
     }
 
-    void OnPostRender () {
+    void OnPostRender()
+    {
         RenderSettings.fog = revertFogState;
     }
 }
