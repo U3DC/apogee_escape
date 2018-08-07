@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class Interactive : MonoBehaviour
 {
     public bool playersFocus;
-    private BoundBox box;
     private Interactive_Sign sign;
     private bool isSign = false;
     private bool isButton = false;
@@ -15,7 +14,6 @@ public class Interactive : MonoBehaviour
 
     void Start()
     {
-        box = GetComponent<BoundBox>();
         if (gameObject.GetComponent<Interactive_Sign>() != null)
         {
             sign = GetComponent<Interactive_Sign>();
@@ -35,7 +33,7 @@ public class Interactive : MonoBehaviour
     {
         if (playersFocus == true)
         {
-            box.enabled = true;
+//            box.enabled = true;
             if (isSign == true)
             {
                 sign.showText = true;
@@ -43,7 +41,7 @@ public class Interactive : MonoBehaviour
         }
         else if (playersFocus == false)
         {
-            box.enabled = false;
+//            box.enabled = false;
             sign.showText = false;
         }
     }

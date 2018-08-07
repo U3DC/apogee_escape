@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33531346937880858}
   - component: {fileID: 64883473161824780}
   - component: {fileID: 23795855883594632}
-  - component: {fileID: 114164591560914164}
   - component: {fileID: 65193784763431730}
   m_Layer: 0
   m_Name: WaterPlane
@@ -111,26 +110,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 64, y: 2.220446e-16, z: 64}
   m_Center: {x: 0, y: -0.8, z: 0}
---- !u!114 &114164591560914164
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1396281422606884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad03c477141ae4d878a2c03aaa7aabf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveHeight: 0.4
-  speed: 1.1
-  waveLength: 16
-  noiseStrength: 1
-  noiseWalk: 5
-  randomHeight: 0.3
-  randomSpeed: 1.5
-  noiseOffset: 0
-  UseSprites: 0
-  Sprites: []
-  SpriteMaterial: {fileID: 2100000, guid: ffdfbd3ef1f4344fd9a021f3a84361cc, type: 2}
-  SpriteFPS: 0.4

@@ -76,16 +76,6 @@ public class FollowPlayer : MonoBehaviour
                             distance_permitted = catchupDistance;
                             transform.position = Vector3.MoveTowards(transform.position, positions[0], Time.deltaTime * playerRB.velocity.magnitude * catchupSpeed);
                             transform.LookAt(new Vector3(positions[+1].x, this.transform.position.y, positions[+1].z));
-                            frame120++;
-                            if (frame120 > 120)
-                            {
-                                follower.GetComponent<FollowerSpeechText>().followerToSay("Catchup");
-                                frame120 = 0;
-
-
-                            }
-                            Debug.Log(frame120);
-                               
                         }
                         else
                         {

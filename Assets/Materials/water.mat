@@ -20,16 +20,16 @@ Material:
     m_TexEnvs:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: c6408a773280a43cb9c5e6b0abcbb8cd, type: 3}
-        m_Scale: {x: 8, y: 8}
+        m_Scale: {x: 14, y: 14}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _DistortionScaleX: 0.01
-    - _DistortionScaleY: 0.01
-    - _RippleSizeX: 6
-    - _RippleSizeY: 6
+    - _DistortionScaleX: 0.0146
+    - _DistortionScaleY: 0.0075
+    - _RippleSizeX: 5.42
+    - _RippleSizeY: 5.02
     - _Scale: 0.04
-    - _SpeedX: 4
-    - _SpeedY: 4
+    - _SpeedX: 2.17
+    - _SpeedY: 3.5
     - _TileX: 5
     - _TileY: 5
     m_Colors: []

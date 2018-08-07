@@ -9,14 +9,23 @@ public class Billboard : MonoBehaviour
     [Range(0.1f, 2f)]
     public float setYnessReduceFactor;
     public static float ynessReduceFactor;
-    private int frame5;
     public bool reverseForward;
+    private GameObject mainCam;
 
+
+    void Start()
+    {
+        mainCam = GameObject.Find("Main Camera");
+    }
     void Update()
     {
+        if (mainCam == null)
+        {
+            mainCam = GameObject.Find("Main Camera");
+        }
         ynessReduceFactor = setYnessReduceFactor;
-        Vector3 cameraNoY = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y * setYnessReduceFactor, Camera.main.transform.position.z);
-        if (reverseForward != true)
+        Vector3 cameraNoY = new Vector3(mainCam.transform.position.x, mainCam.transform.position.y * setYnessReduceFactor, mainCam.transform.position.z);
+        if (reverseForward == false)
         {
             transform.LookAt(cameraNoY, Vector3.up);
         }

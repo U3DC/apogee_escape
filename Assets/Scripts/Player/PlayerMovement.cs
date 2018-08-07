@@ -12,8 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 10f;
     private float moveVelocity;
-    [SerializeField]
-    private bool isGrounded;
+    public bool isGrounded;
     public float groundHitDistance;
 
     private Vector3 movement;
@@ -24,22 +23,25 @@ public class PlayerMovement : MonoBehaviour
     private Animator[] playerSprites;
 
     [Header("Flashlight")]
-    private bool equipFlashlight;
     public GameObject itemFlashlight;
     private Vector3 itemFlashlightPos;
     public float flashlightBobVelocity = 20f;
     public float flashlightBobAmount = 0.2f;
 
+    [Header("Controllers")]
+    public CountdownAirSupply air;
+    public CountdownTemperature cold;
+    public GameObject timerController;
+
     RaycastHit hit;
 
-    private GameObject follower;
 
     void Awake()
     {
+        timerController = GameObject.Find("TimerStatusController");
         myRB = GetComponent<Rigidbody>();
         playerSprites = gameObject.GetComponentsInChildren<Animator>();
         itemFlashlightPos = itemFlashlight.transform.localPosition;
-        follower = GameObject.Find("Follower");
     }
 
     void FixedUpdate()
@@ -56,6 +58,18 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+
+    void OnTriggerStay(Collider other)
+    {
+
+        if (other.gameObject.tag == "AirReplenish")
+        {
+            timerController.GetComponent<CountdownAirSupply>().Replenish();
+            Debug.Log("in the replenish zone");
+        }
+
     }
 
     void Move(float lh, float lv)
@@ -84,20 +98,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         InteractiveCheck();
+        //flaslight bob
+        itemFlashlight.transform.localPosition = new Vector3(itemFlashlight.transform.localPosition.x,
+            itemFlashlightPos.y + Mathf.Clamp((Mathf.Sin(Time.time * flashlightBobVelocity)), flashlightBobAmount * -10, flashlightBobAmount * 10) * flashlightBobAmount,
+            itemFlashlight.transform.localPosition.z);
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Flashlight();
-        }
-
-        if (equipFlashlight == true)
-        {
-            itemFlashlight.transform.localPosition = new Vector3(itemFlashlight.transform.localPosition.x, itemFlashlightPos.y + Mathf.Clamp((Mathf.Sin(Time.time * flashlightBobVelocity)), flashlightBobAmount * -10, flashlightBobAmount * 10) * flashlightBobAmount, itemFlashlight.transform.localPosition.z);
-        }
-        else
-        {
-            itemFlashlight.transform.localPosition = itemFlashlightPos;
-        }
     }
 
     void InteractiveCheck()
@@ -170,7 +175,6 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        follower.GetComponent<FollowerSpeechText>().followerToSay("Jump");
     }
 
     void Rotating(float lh, float lv)
@@ -181,25 +185,5 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<Rigidbody>().MoveRotation(newRotation);
     }
 
-    void Flashlight()
-    {
-        if (equipFlashlight == true)
-        {
-            equipFlashlight = false;
-            itemFlashlight.SetActive(false);
-            foreach (Animator playerSprites in playerSprites)
-            {
-                playerSprites.SetBool("equipFlashlight", false);
-            }
-        }
-        else if (equipFlashlight == false)
-        {
-            equipFlashlight = true;
-            itemFlashlight.SetActive(true);
-            foreach (Animator playerSprites in playerSprites)
-            {
-                playerSprites.SetBool("equipFlashlight", true);
-            }
-        }
-    }
+ 
 }

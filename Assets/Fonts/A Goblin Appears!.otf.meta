@@ -1,11 +1,9 @@
 fileFormatVersion: 2
 guid: 24ada73df65934844a2c8a275cee5b8e
-timeCreated: 1533029494
-licenseType: Pro
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 16
+  fontSize: 7
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1

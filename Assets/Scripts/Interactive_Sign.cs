@@ -9,7 +9,6 @@ public class Interactive_Sign : MonoBehaviour
     public bool showText;
     public string signText;
     private bool isShowingText;
-    [SerializeField]
     private Text signTextUI;
 
     [SerializeField]

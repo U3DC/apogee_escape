@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 3c7cd131cad8b441997be3b7f502e179
-timeCreated: 1533004318
-licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
     21300000: rockdebris1-sheet_0
@@ -10,6 +8,8 @@ TextureImporter:
     21300006: rockdebris1-sheet_3
     21300008: rockdebris1-sheet_4
     21300010: rockdebris1-sheet_5
+    21300012: rockdebris1-sheet_6
+    21300014: rockdebris1-sheet_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -181,6 +181,34 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: rockdebris1-sheet_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: rockdebris1-sheet_7
+      rect:
+        serializedVersion: 2
+        x: 224
         y: 0
         width: 32
         height: 32

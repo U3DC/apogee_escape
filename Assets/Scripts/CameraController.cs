@@ -21,18 +21,23 @@ public class CameraController : MonoBehaviour
     private Vector3 lastPos;
     [SerializeField]
     private bool playerMoving;
-    private Transform player;
+    private GameObject player;
     private Rigidbody playerRB;
+    private bool isJumping = false;
+    private float groundedYPos;
+        
 
     private int frame5 = 6;
 
     void Awake()
     {
-        player = GameObject.Find("player").transform;
-        originalOffset = transform.position - player.position;
+        player = GameObject.Find("player");
+        originalOffset = transform.position - player.transform.position;
         originalCamPos = transform;
         playerRB = player.GetComponent<Rigidbody>();
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        isJumping = player.GetComponent<PlayerMovement>();
+        groundedYPos = player.transform.position.x;
     }
 
     void Update()
@@ -54,12 +59,21 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        Debug.DrawLine(trackVelocity + player.position, player.position, Color.yellow);
+        Debug.DrawLine(trackVelocity + player.transform.position, player.transform.position, Color.yellow);
         playerFacingInfluence = new Vector3(player.transform.forward.x * playerFacingOffset, 0, player.transform.forward.z * playerFacingOffset);
-        desiredPosition = new Vector3(player.position.x + playerFacingInfluence.x + originalOffset.x, originalCamPos.position.y, player.position.z + playerFacingInfluence.z + originalOffset.z);
+
+
+        desiredPosition = new Vector3(
+            player.transform.position.x + playerFacingInfluence.x + originalOffset.x, 
+            player.transform.position.y + playerFacingInfluence.y + originalOffset.y, 
+            player.transform.position.z + playerFacingInfluence.z + originalOffset.z
+        );
+
         smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
         trackVelocity = (playerRB.position - lastPos) * 50;
         lastPos = playerRB.position;
+
+
     }
 }
