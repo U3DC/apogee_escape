@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 23674551476543660}
   - component: {fileID: 114012133820446286}
   - component: {fileID: 114624609160166200}
-  - component: {fileID: 114537343668952864}
   m_Layer: 0
   m_Name: Sign
   m_TagString: InteractiveObject
@@ -39,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1757857201831042}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6340017, y: 2, z: -2}
+  m_LocalPosition: {x: -5.6340017, y: 1.01, z: -2}
   m_LocalScale: {x: 0.6000002, y: 0.6, z: 0.10000003}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,7 +95,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.1, z: 1.1}
+  m_Size: {x: 1.5, y: 2.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114012133820446286
 MonoBehaviour:
@@ -110,30 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersFocus: 0
---- !u!114 &114537343668952864
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1757857201831042}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7abbac048f81d44bafe6a4fb1135b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colliderBased: 0
-  permanent: 0
-  lineColor: {r: 1, g: 0.7, b: 0, a: 1}
-  colliderBound:
-    m_Center: {x: -5.634, y: 2, z: -2}
-    m_Extent: {x: 0.32999992, y: 0.32999992, z: 0.055000067}
-  colliderBoundOffset: {x: 0, y: 0, z: 0}
-  meshBound:
-    m_Center: {x: -5.634, y: 2, z: -2}
-    m_Extent: {x: 0.3000002, y: 0.29999995, z: 0.049999952}
-  meshBoundOffset: {x: 0, y: 0, z: 0}
-  setupOnAwake: 0
-  startingScale: {x: 0.6000002, y: 0.6, z: 0.10000003}
 --- !u!114 &114624609160166200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,5 +121,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showText: 0
-  signText: This is some madness right here. Just a little sign.
-  signTextUI: {fileID: 0}
+  signText: The rocket was damaged. Seemingly beyond repair but I have no choice but
+    to repair it.

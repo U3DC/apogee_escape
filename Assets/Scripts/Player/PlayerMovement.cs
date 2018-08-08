@@ -32,16 +32,22 @@ public class PlayerMovement : MonoBehaviour
     public CountdownAirSupply air;
     public CountdownTemperature cold;
     public GameObject timerController;
-
+    public GameObject droneChoiceMenu;
     RaycastHit hit;
 
 
     void Awake()
     {
-        timerController = GameObject.Find("_TimerStatusController");
+        
         myRB = GetComponent<Rigidbody>();
         playerSprites = gameObject.GetComponentsInChildren<Animator>();
         itemFlashlightPos = itemFlashlight.transform.localPosition;
+
+
+        air = timerController.GetComponent<CountdownAirSupply>();
+
+        cold = timerController.GetComponent<CountdownTemperature>();
+
     }
 
     void FixedUpdate()
@@ -66,16 +72,42 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.gameObject.tag == "AirReplenish")
         {
-            timerController.GetComponent<CountdownAirSupply>().Replenish();
+            air.Replenish();
             Debug.Log("in the replenish zone");
+            droneChoiceMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+
+
         }
         if (other.gameObject.tag == "Heater")
         {
-            timerController.GetComponent<CountdownTemperature>().Replenish();
+            cold.Replenish();
             Debug.Log("in the heat zone");
+            droneChoiceMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+
+        }
+        if (other.gameObject.tag == "DroneZone")
+        {
+            droneChoiceMenu.SetActive(true);
+            Debug.Log("in the drone zone");
+        }
+        else
+        {
+            droneChoiceMenu.SetActive(false);
+
         }
 
     }
+    void OnTriggerExit(Collider other)
+    {
+        droneChoiceMenu.SetActive(false);
+        Time.timeScale = 1f;
+
+    }
+
 
     void Move(float lh, float lv)
     {

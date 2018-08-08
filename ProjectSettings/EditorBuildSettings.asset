@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: b6de10b4f8f2d4da08242acde7cb8291
+  - enabled: 0
+    path: Assets/SInput/Utilities/GamepadTesting/GamepadTesting.unity
+    guid: 5b73f020c134d4746974870f2f82f8f1
