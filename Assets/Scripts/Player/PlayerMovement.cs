@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-        timerController = GameObject.Find("TimerStatusController");
+        timerController = GameObject.Find("_TimerStatusController");
         myRB = GetComponent<Rigidbody>();
         playerSprites = gameObject.GetComponentsInChildren<Animator>();
         itemFlashlightPos = itemFlashlight.transform.localPosition;
@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        float lh = Input.GetAxisRaw("Horizontal");
-        float lv = Input.GetAxisRaw("Vertical");
+        float lh = Sinput.GetAxisRaw("Horizontal");
+        float lv = Sinput.GetAxisRaw("Vertical");
         Move(lh, lv);
 
         if (Physics.Raycast(transform.position - new Vector3(0f, -0.5f, 0f), -transform.up, groundHitDistance))
@@ -69,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
             timerController.GetComponent<CountdownAirSupply>().Replenish();
             Debug.Log("in the replenish zone");
         }
+        if (other.gameObject.tag == "Heater")
+        {
+            timerController.GetComponent<CountdownTemperature>().Replenish();
+            Debug.Log("in the heat zone");
+        }
 
     }
 
@@ -78,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         movement = Camera.main.transform.TransformDirection(movement);
         movement.y = 0f;
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        if (Sinput.GetButtonDown("Jump") && isGrounded)
         {
             Jump();
         }
@@ -174,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);            
     }
 
     void Rotating(float lh, float lv)
