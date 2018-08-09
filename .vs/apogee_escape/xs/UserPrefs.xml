@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{FC1F6E58-B361-A42A-C07C-75225BF09B0F}|">
+  <MonoDevelop.Ide.ItemProperties.apogee__escape PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DroneBehaviourRepair.cs">
+    <Files>
+      <File FileName="Assets/DroneBehaviourRepair.cs" Line="119" Column="14" />
+      <File FileName="Assets/DroneDeploy.cs" Line="69" Column="95" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

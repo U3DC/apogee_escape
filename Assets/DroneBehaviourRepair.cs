@@ -4,99 +4,165 @@ using UnityEngine;
 
 public class DroneBehaviourRepair : MonoBehaviour
 {
-
-    public GameObject ship;
-    private Vector3 target;
-    private float angle;
-
-
     [Header("Properties")]
-    private bool canShoot = true;
-    public int damageAmount = 40;
-
-    [Header("Randomisations - Movement")]
-    public GameObject[] repairPoints;
-
-    public float maxRepairTime = 8f;
-    public float minRepairTime = 3f;
-    private float timeToRepair;
-
-    public float maxSpeed = 1.90f;
-    public float minSpeed = 1.25f;
-    private float speed;
-
-    [Header("Randomisations - Placement")]
-    public float maxXOffset = 1f;
-    public float minXOffset = -1f;
-    private float xOffset;
-
-    public float maxYOffset = 0.25f;
-    public float minYOffset = -0.25f;
-    private float yOffset;
-
-    public float maxZOffset = 1f;
-    public float minZOffset = -1f;
-    private float zOffset;
-
-    private Vector3 offsetPosition;
-    private Vector3 nextRepairPoint;
-
+    public GameObject ship;
     public GameObject statusController;
     private RepairStatus repairStatus;
-    private bool isRepairing;
 
+    [Header("Action")]
+    private bool repairEffectEnabled;
+    private float repairEffectTime;
+    public float maxRepairEffectTime = 1.0f;
+    public float minRepairEffectTime = 0.4f;
+
+    private float repairEffectInvterval;
+    public float maxRepairEffectInterval = 1f;
+    public float minRepairEffectInterval = 1f;
+
+    private enum droneState
+    {
+        moving,
+        lowering,
+        repairing,
+        lifting
+    };
+    [SerializeField]
+    private droneState currentState;
+    public GameObject[] repairPositions;
+    private Vector3 offsetPosition;
+    private Vector3 nextRepairPoint;
+    public float maxRepairTime = 8f;
+    public float minRepairTime = 5f;
+    private float timeToRepair;
+    public GameObject repairTrail;
+
+    [Header("Movement")]
+    public float maxSpeed = 10f;
+    public float minSpeed = 6f;
+    private float speed;
+    public float upDownRate = 0.5f;
+
+    [Header("Position")]
+    public float maxXOffset = 0.5f;
+    public float minXOffset = -0.5f;
+    public float maxYOffset = 0.25f;
+    public float minYOffset = -0.25f;
+    public float maxZOffset = 0.5f;
+    public float minZOffset = -0.5f;
+    public float maxFlyUp = 3.5f;
+    public float minFlyUp = 1.5f;
+
+    private float flyUp;
+    private Vector3 flyUpPoint;
+    private Vector3 previousRepairPoint;
+    private Vector3 desiredPosition;
 
     void Start()
     {
+        previousRepairPoint = gameObject.transform.position;
+        currentState = droneState.lifting;
         repairStatus = statusController.GetComponent<RepairStatus>();
         SetRandomisations();
-        isRepairing = false;
     }
 
     void SetRandomisations()
     {
-        Debug.Log("set randomisations");
-
-        timeToRepair = Random.Range(minRepairTime, maxRepairTime);
         speed = Random.Range(minSpeed, maxSpeed);
+        offsetPosition = new Vector3(Random.Range(minXOffset, maxXOffset),
+                                     Random.Range(minYOffset, maxYOffset),
+                                     Random.Range(minZOffset, maxZOffset)
+                                    );
 
-        xOffset = Random.Range(minXOffset, maxXOffset);
-        yOffset = Random.Range(minYOffset, maxYOffset);
-        zOffset = Random.Range(minZOffset, maxZOffset);
-        offsetPosition = new Vector3(xOffset, yOffset, zOffset);
+        flyUp = Random.Range(minFlyUp, maxFlyUp);
+        flyUpPoint = new Vector3(0, flyUp, 0);
 
-        nextRepairPoint = repairPoints[Random.Range(0, repairPoints.Length)].transform.position;// + offsetPosition;
-
-    }
-
-    IEnumerator RateOfRepairTimer()
-    {
-        Debug.Log("repair started");
-        isRepairing = true;
-        yield return new WaitForSeconds(timeToRepair);
-        repairStatus.repairDroneCompleted();
-
-        SetRandomisations();
-        isRepairing = false;
-        Debug.Log("repair done");
-
-        yield break;
+        nextRepairPoint = repairPositions[Random.Range(0, repairPositions.Length)].transform.position + offsetPosition;
+        timeToRepair = Random.Range(minRepairTime, maxRepairTime);
+        repairEffectTime = Random.Range(minRepairEffectTime, maxRepairEffectTime);
+        repairEffectInvterval = Random.Range(minRepairEffectInterval, maxRepairEffectInterval);
     }
 
     void Update()
     {
-        if (isRepairing == false)
+        Debug.Log(ship.transform.position);
+        if (currentState == droneState.lifting)
         {
-            gameObject.transform.position = Vector3.MoveTowards(transform.position, nextRepairPoint, speed * Time.deltaTime);
-            Debug.Log("moving to " + nextRepairPoint);
-
-            Debug.DrawLine(gameObject.transform.position, ship.transform.position, Color.blue);
-
+            desiredPosition = Vector3.MoveTowards(desiredPosition, previousRepairPoint + flyUpPoint, (speed * upDownRate) * Time.deltaTime);
+            if (Vector3.Distance(gameObject.transform.position, previousRepairPoint + flyUpPoint) < 0.1f)
+            {
+                currentState = droneState.moving;
+            }
+        }
+        if (currentState == droneState.moving)
+        {
+            desiredPosition = Vector3.MoveTowards(desiredPosition, nextRepairPoint + flyUpPoint, speed * Time.deltaTime);
+            if (Vector3.Distance(gameObject.transform.position, nextRepairPoint + flyUpPoint) < 0.1f)
+            {
+                currentState = droneState.lowering;
+            }
+        }
+        if (currentState == droneState.lowering)
+        {
+            desiredPosition = Vector3.MoveTowards(desiredPosition, nextRepairPoint, (speed * upDownRate) * Time.deltaTime);
             if (Vector3.Distance(gameObject.transform.position, nextRepairPoint) < 0.1f)
             {
                 StartCoroutine("RateOfRepairTimer");
             }
         }
+        if (currentState == droneState.repairing)
+        {
+            if (repairEffectEnabled == false)
+            {
+                StartCoroutine(RepairEffects());
+            }
+        }
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * speed);
     }
 
+    IEnumerator RateOfRepairTimer()
+    {
+        Debug.Log("repair started");
+        currentState = droneState.repairing;
+        yield return new WaitForSeconds(timeToRepair);
+        repairStatus.repairDroneCompleted();
+        Debug.Log("repair done");
+
+        SetRandomisations();
+        currentState = droneState.lifting;
+        previousRepairPoint = gameObject.transform.position;
+        yield break;
+    }
+
+
+    IEnumerator RepairEffects()
+    {
+        while (true)
+        {
+            if (repairEffectEnabled == false && currentState == droneState.repairing)
+            {
+                repairEffectEnabled = true;
+                GameObject trail;
+                trail = Instantiate(repairTrail, transform.position, Quaternion.Euler(Vector3.zero),transform);
+                LineRenderer lr = trail.GetComponent<LineRenderer>();
+
+                if (lr != null)
+                {
+                    lr.SetPosition(0, transform.position);
+                    lr.SetPosition(1, ship.transform.position);
+                    lr.material.SetTextureOffset("_MainTex", new Vector2(5f * Time.deltaTime, 0f));
+                }
+
+                if (currentState != droneState.repairing)
+                {
+                    Destroy(trail.gameObject);
+                }
+                else
+                {
+                    Destroy(trail.gameObject, repairEffectTime);
+                }
+            }
+            yield return new WaitForSeconds(repairEffectInvterval);
+            repairEffectEnabled = false;
+        }
+    }
 }
