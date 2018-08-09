@@ -43,9 +43,9 @@ public class DroneBehaviourDefence : MonoBehaviour
     void Start()
     {
         SetRandomisations();
-        StartCoroutine("ROFTimer");
+        StartCoroutine("RateOfFireTimer");
     }
-    IEnumerator ROFTimer()
+    IEnumerator RateOfFireTimer()
     {
             yield return new WaitForSeconds(rateOfFire);
             canShoot = true;
@@ -101,7 +101,7 @@ public class DroneBehaviourDefence : MonoBehaviour
 
                 other.GetComponent<EnemyController>().damage(damageAmount);
                 canShoot = false;
-                StartCoroutine("ROFTimer");
+                StartCoroutine("RateOfFireTimer");
             }
 
 

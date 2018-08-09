@@ -76,9 +76,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("in the replenish zone");
             droneChoiceMenu.SetActive(false);
             Time.timeScale = 1f;
-
-
-
         }
         if (other.gameObject.tag == "Heater")
         {
@@ -86,8 +83,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("in the heat zone");
             droneChoiceMenu.SetActive(false);
             Time.timeScale = 1f;
-
-
         }
         if (other.gameObject.tag == "DroneZone")
         {
@@ -97,10 +92,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             droneChoiceMenu.SetActive(false);
-
         }
-
     }
+
     void OnTriggerExit(Collider other)
     {
         droneChoiceMenu.SetActive(false);

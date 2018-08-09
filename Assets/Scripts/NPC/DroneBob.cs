@@ -19,7 +19,7 @@ public class DroneBob : MonoBehaviour {
     {
         gameObject.transform.localPosition = new Vector3(
             gameObject.transform.localPosition.x,
-            originalPos.y + Mathf.Clamp((Mathf.Sin(Time.time * bobVelocity)), bobAmount * -10, bobAmount * 10) * bobAmount,
+            originalPos.y + (Mathf.Sin(Time.time * bobVelocity) * bobAmount),
             gameObject.transform.localPosition.z);
 	}
 }
