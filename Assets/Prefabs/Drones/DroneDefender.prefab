@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 212584666098509190}
   - component: {fileID: 95368866345766154}
   - component: {fileID: 114127148060917730}
+  - component: {fileID: 114655727916514700}
   m_Layer: 0
   m_Name: droneSprite
   m_TagString: Untagged
@@ -53,7 +54,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4971081463059672}
-  - component: {fileID: 114882989120760358}
   - component: {fileID: 114783344273888354}
   - component: {fileID: 135106719085485360}
   m_Layer: 0
@@ -134,6 +134,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setYnessReduceFactor: 1.075
   reverseForward: 0
+--- !u!114 &114655727916514700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467636754114638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c38965f00dd464287884d4eb0a3742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobVelocity: 1
+  bobAmount: 0.2
 --- !u!114 &114783344273888354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,19 +171,6 @@ MonoBehaviour:
   minYOffset: -2
   maxZOffset: 5
   minZOffset: -5
---- !u!114 &114882989120760358
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1761471749685292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c38965f00dd464287884d4eb0a3742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bobVelocity: 1
-  bobAmount: 0.2
 --- !u!119 &119027865278234046
 Projector:
   m_ObjectHideFlags: 1
