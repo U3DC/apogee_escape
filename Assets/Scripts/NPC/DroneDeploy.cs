@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DroneDeploy : MonoBehaviour
 {
@@ -10,6 +11,25 @@ public class DroneDeploy : MonoBehaviour
     public GameObject refuelDrone;
     public GameObject spawnPoint;
 
+    public static int defendCount;
+    public static int assistCount;
+    public static int repairCount;
+    public static int refuelCount;
+
+    public Text defendText;
+    public Text assistText;
+    public Text repairText;
+    public Text refuelText;
+
+    public string droneCounterPreface = "Active: ";
+
+    void Start()
+    {
+        defendCount = 0;
+        assistCount = 0;
+        repairCount = 0;
+        refuelCount = 0;
+    }
 
     public void Deploy(string _droneType)
     {
@@ -42,7 +62,9 @@ public class DroneDeploy : MonoBehaviour
     {
         Debug.Log("Deploying Defend drone");
         Instantiate(defendDrone, spawnPoint.transform.position, Quaternion.Euler(Vector3.zero));
-      
+        defendCount++;
+        defendText.text = droneCounterPreface + defendCount;
+
 
     }
 
@@ -50,7 +72,8 @@ public class DroneDeploy : MonoBehaviour
     {
         Debug.Log("Deploying assist drone");
         Instantiate(assistDrone, spawnPoint.transform.position, Quaternion.Euler(Vector3.zero));
-
+        assistCount++;
+        assistText.text = droneCounterPreface + assistCount;
     }
 
 
@@ -58,7 +81,8 @@ public class DroneDeploy : MonoBehaviour
     {
         Debug.Log("Deploying Repair drone");
         Instantiate(repairDrone, spawnPoint.transform.position, Quaternion.Euler(Vector3.zero));
-
+        repairCount++;
+        repairText.text = droneCounterPreface + repairCount;
 
     }
 
@@ -67,7 +91,8 @@ public class DroneDeploy : MonoBehaviour
     {
         Debug.Log("Deploying refuel drone");
         Instantiate(refuelDrone, spawnPoint.transform.position, Quaternion.Euler(Vector3.zero));
-
+        refuelCount++;
+        refuelText.text = droneCounterPreface + refuelCount;
     }
 
 

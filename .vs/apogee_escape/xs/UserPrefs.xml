@@ -1,6 +1,17 @@
 ﻿<Properties StartupConfiguration="{FC1F6E58-B361-A42A-C07C-75225BF09B0F}|">
   <MonoDevelop.Ide.ItemProperties.apogee__escape PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NPC/SpawnManager.cs">
+    <Files>
+      <File FileName="Assets/Scripts/NPC/DroneDeploy.cs" Line="89" Column="1" />
+      <File FileName="Assets/Scripts/NPC/DroneBob.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/NPC/DroneBehaviourRepair.cs" Line="69" Column="1" />
+      <File FileName="Assets/Scripts/UI/PixelFontFix.cs" Line="13" Column="1" />
+      <File FileName="Assets/Scripts/NPC/DroneBehaviourRefuel.cs" Line="75" Column="9" />
+      <File FileName="Assets/Scripts/NPC/DroneBehaviourAssist.cs" Line="157" Column="69" />
+      <File FileName="Assets/Scripts/Visual/DustFollowPlayer.cs" Line="19" Column="1" />
+      <File FileName="Assets/Scripts/NPC/SpawnManager.cs" Line="98" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

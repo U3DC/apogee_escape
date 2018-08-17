@@ -69,7 +69,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467636754114638}
-  m_LocalRotation: {x: -0.14257917, y: -0.30796626, z: -0.04673761, w: 0.93949115}
+  m_LocalRotation: {x: -0.14653455, y: -0.3047664, z: -0.047515083, w: 0.9398869}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -96,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761471749685292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.279, y: 3.733, z: -1.69}
+  m_LocalPosition: {x: 0.58, y: 3.733, z: -1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4029880615717838}
@@ -158,19 +158,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76321120e7bf64b69ac5713cff4cc595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 0}
+  weaponTrail: {fileID: 1141849239266292, guid: 8ff5350c027c849dfb6d404ee106c3c4,
+    type: 2}
+  weaponTrailTime: 0.2
   rateOfFire: 2
   damageAmount: 40
+  currentState: 0
+  orbitChangeCountdown: 7
+  maxSpeed: 80
+  minSpeed: 60
+  radiusSpeed: 0.5
   maxRadius: 4
   minRadius: 8
-  maxSpeed: 3
-  minSpeed: 1.5
+  angle: 30
   maxXOffset: 5
   minXOffset: -5
   maxYOffset: 5
   minYOffset: -2
   maxZOffset: 5
   minZOffset: -5
+  maxYFlyOffset: 2
+  minYFlyOffset: -3
+  ship: {fileID: 0}
+  defencePositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  maxDistance: 11
 --- !u!119 &119027865278234046
 Projector:
   m_ObjectHideFlags: 1

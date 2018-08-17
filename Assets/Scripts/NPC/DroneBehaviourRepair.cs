@@ -28,7 +28,9 @@ public class DroneBehaviourRepair : MonoBehaviour
     };
     [SerializeField]
     private droneState currentState;
-    public GameObject[] repairPositions;
+    public Transform[] repairPositions;
+    private int repairPositionsCount;
+
     private Vector3 offsetPosition;
     private Vector3 nextRepairPoint;
     public float maxRepairTime = 8f;
@@ -60,8 +62,24 @@ public class DroneBehaviourRepair : MonoBehaviour
 
     void Start()
     {
-        previousRepairPoint = gameObject.transform.position;
+        // required to create the association when we instantiate prefabs
+        statusController = GameObject.Find("_StatusController");
+        ship = GameObject.Find("shipChassis"); 
+
+        //set up array of repair points
+        repairPositionsCount = 0;
+        foreach (Transform child in GameObject.Find("RepairPoints").transform)
+        {
+            repairPositions[repairPositionsCount] = child.transform;
+            repairPositionsCount++;
+        }
+        if (repairPositions.Length == 0)
+        {
+            Debug.LogError("No repair points in array");
+        }
+
         currentState = droneState.lifting;
+        previousRepairPoint = gameObject.transform.position;
         repairStatus = statusController.GetComponent<RepairStatus>();
         SetRandomisations();
     }

@@ -41,19 +41,38 @@ public class DroneBehaviourDefence : MonoBehaviour
     public float maxZOffset = 5f;
     public float minZOffset = -5f;
 
-    // the vertical amount so that not all the drones are flying at the same altitude
+    // random vertical amount so that not all the drones are flying at the same altitude
     public float maxYFlyOffset = 2f;
     public float minYFlyOffset = -3f;
     private float yFlyOffset;
 
     private Vector3 offsetPosition;
     public GameObject ship;
-    public GameObject[] defencePositions;
+    public Transform[] defencePositions;
+    public int defencePositionsCount;
+
     private Vector3 nextDefencePosition;
     public float maxDistance = 3f;
 
+    private Collider other;
+    private bool triggered = false;
+
     void Start()
     {
+        // required to create the association when we instantiate prefabs
+        ship = GameObject.Find("shipChassis"); 
+        //set up array of repair points
+        defencePositionsCount = 0;
+        foreach (Transform child in GameObject.Find("DefencePoints").transform)
+        {
+            defencePositions[defencePositionsCount] = child.transform;
+            defencePositionsCount++;
+        }
+        if (defencePositions.Length == 0)
+        {
+            Debug.LogError("No defence points in array");
+        }
+
         currentState = droneState.patrolling;
         mySC = GetComponent<SphereCollider>();
     }
@@ -92,10 +111,11 @@ public class DroneBehaviourDefence : MonoBehaviour
             if (Vector3.Distance(transform.position, ship.transform.position) > maxDistance)
             {
                 Vector3 velocity = Vector3.zero;
-                //transform.position = Vector3.SmoothDamp(transform.position, new Vector3(ship.transform.position.x, transform.position.y, ship.transform.position.z),ref velocity,0.3f);
-                transform.position = Vector3.Lerp(transform.position, new Vector3(ship.transform.position.x, transform.position.y, ship.transform.position.z), 0.1f * Time.deltaTime);
+                transform.position = Vector3.Lerp(
+                    transform.position, 
+                    new Vector3(ship.transform.position.x, transform.position.y, ship.transform.position.z), 
+                    0.1f * Time.deltaTime);
                 SetRandomisations();
-
             }
             else
                 transform.RotateAround(nextDefencePosition, Vector3.up, angle * Time.deltaTime);
@@ -107,12 +127,13 @@ public class DroneBehaviourDefence : MonoBehaviour
         Debug.Log("alien detected");
         if (other.gameObject.tag == "Alien")
         {
+            triggered = true;
+            this.other = other;
             StopCoroutine("ReturnToPatrolling");
             currentState = droneState.attacking;
 
             if (canShoot == true)
             {
-
                 GameObject trail;
                 trail = Instantiate(weaponTrail, transform.position, Quaternion.Euler(Vector3.zero), transform);
                 LineRenderer lr = trail.GetComponent<LineRenderer>();
@@ -136,10 +157,10 @@ public class DroneBehaviourDefence : MonoBehaviour
                 {
                     other.GetComponent<EnemyController>().damage(damageAmount);
                 }
+
                 canShoot = false;
                 StartCoroutine("RateOfFireTimer");
                 StartCoroutine("ReturnToPatrolling");
-
             }
         }
     }
@@ -148,6 +169,17 @@ public class DroneBehaviourDefence : MonoBehaviour
     {
         if (other.gameObject.tag == "Alien")
         {
+            Debug.Log("enemy exited collider");
+            currentState = droneState.patrolling;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        //in the case of when the enemy is destroyed rather than exiting trigger collider
+        if (triggered && !other)
+        {
+            Debug.Log("enemy destroyed or exited collider");
             currentState = droneState.patrolling;
         }
     }

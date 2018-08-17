@@ -12,6 +12,7 @@ TagManager:
   - Heater
   - DroneZone
   - Alien
+  - Rock
   layers:
   - Default
   - TransparentFX
