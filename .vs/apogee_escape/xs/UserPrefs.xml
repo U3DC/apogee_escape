@@ -6,10 +6,13 @@
       <File FileName="Assets/Scripts/NPC/DroneBob.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/NPC/DroneBehaviourRepair.cs" Line="69" Column="1" />
       <File FileName="Assets/Scripts/UI/PixelFontFix.cs" Line="13" Column="1" />
-      <File FileName="Assets/Scripts/NPC/DroneBehaviourRefuel.cs" Line="75" Column="9" />
+      <File FileName="Assets/Scripts/NPC/DroneBehaviourRefuel.cs" Line="54" Column="1" />
       <File FileName="Assets/Scripts/NPC/DroneBehaviourAssist.cs" Line="157" Column="69" />
-      <File FileName="Assets/Scripts/Visual/DustFollowPlayer.cs" Line="19" Column="1" />
-      <File FileName="Assets/Scripts/NPC/SpawnManager.cs" Line="98" Column="1" />
+      <File FileName="Assets/Scripts/Visual/DustFollowPlayer.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/NPC/SpawnManager.cs" Line="111" Column="30" />
+      <File FileName="Assets/AstarPathfindingProject/Core/Serialization/JsonSerializer.cs" Line="494" Column="1" />
+      <File FileName="Assets/Scripts/Player/PlayerMovement.cs" Line="44" Column="1" />
+      <File FileName="Assets/Scripts/UI/ShipPointerUI.cs" Line="17" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
