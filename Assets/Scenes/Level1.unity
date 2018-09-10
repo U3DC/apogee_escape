@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.02
   m_LinearFogStart: 25
   m_LinearFogEnd: 50
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.472
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44646388, g: 0.49628484, b: 0.5747498, a: 1}
+  m_IndirectSpecularColor: {r: 0.4464637, g: 0.49628454, b: 0.5747491, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -302,7 +302,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e79b9692b3f4373950e732b313b7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves: []
+  waves:
+  - name: 
+    enemy: {fileID: 4169610293438856, guid: 176614c8037104ea5a2d454779119d3a, type: 2}
+    count: 3
+    rate: 0.1
+    waitForEnemiesToDie: 0
+  - name: 
+    enemy: {fileID: 4687999858106184, guid: 5e18800f9ebe5404bb27a2b254dc3254, type: 2}
+    count: 3
+    rate: 0
+    waitForEnemiesToDie: 1
+  - name: 
+    enemy: {fileID: 4687999858106184, guid: 5e18800f9ebe5404bb27a2b254dc3254, type: 2}
+    count: 1
+    rate: 0
+    waitForEnemiesToDie: 0
+  - name: 
+    enemy: {fileID: 4687999858106184, guid: 5e18800f9ebe5404bb27a2b254dc3254, type: 2}
+    count: 1
+    rate: 0
+    waitForEnemiesToDie: 0
+  - name: 
+    enemy: {fileID: 4234619073744758, guid: cd2948801597f4e43984ef143573111a, type: 2}
+    count: 1
+    rate: 0
+    waitForEnemiesToDie: 0
   timeBetweenWaves: 5
   spawnPointRandomRadius: 0.5
   spawnPoints: []
@@ -804,7 +829,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 73147164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1011367633}
+        m_MethodName: DroneZone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &73147164
@@ -1915,7 +1951,7 @@ GameObject:
   - component: {fileID: 210274128}
   - component: {fileID: 210274127}
   m_Layer: 5
-  m_Name: DroneCounter (2)
+  m_Name: AssistDroneCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4576,7 +4612,7 @@ GameObject:
   - component: {fileID: 741825238}
   - component: {fileID: 741825237}
   m_Layer: 5
-  m_Name: DroneCounter (3)
+  m_Name: RepairDroneCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6115,11 +6151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd4901952d2843be8d8a0edad3ab01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defendDrone: {fileID: 0}
-  assistDrone: {fileID: 0}
-  repairDrone: {fileID: 0}
-  refuelDrone: {fileID: 0}
-  spawnPoint: {fileID: 0}
+  defendDrone: {fileID: 1761471749685292, guid: 899da32f5a7784d138b86335778f0def,
+    type: 2}
+  assistDrone: {fileID: 1122524012013418, guid: 8c9381fe9518b4363b948dde133aec8c,
+    type: 2}
+  repairDrone: {fileID: 1350737400717886, guid: 0fa48457ae2274f859933b4b59470576,
+    type: 2}
+  refuelDrone: {fileID: 1350737400717886, guid: 758d479ca9add4b36a040746a0753456,
+    type: 2}
+  spawnPoint: {fileID: 507438071}
   defendText: {fileID: 0}
   assistText: {fileID: 0}
   repairText: {fileID: 0}
@@ -6324,6 +6364,7 @@ MonoBehaviour:
   maxSpeed: 5
   isGrounded: 1
   groundHitDistance: 2
+  inMenu: 0
   itemFlashlight: {fileID: 805289301}
   flashlightBobVelocity: 2
   flashlightBobAmount: 0.1
@@ -8101,7 +8142,7 @@ GameObject:
   - component: {fileID: 1309536753}
   - component: {fileID: 1309536752}
   m_Layer: 5
-  m_Name: DroneCounter (4)
+  m_Name: RefuelDroneCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9388,7 +9429,7 @@ GameObject:
   - component: {fileID: 1521108558}
   - component: {fileID: 1521108557}
   m_Layer: 5
-  m_Name: DroneCounter (1)
+  m_Name: DefendDroneCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11246,7 +11287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: 
+    dataString: UEsDBBQAAAgIAABYIeyA/HkbOQIAAMoEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzmUGQ4DQW2sI7YGQCc304ouw1liDLHn0EUIY/ntXssCuc5L19uvt25UvhEtTQ26VXmvONooB+T4g/pt8GxAabK/UcoVwggg3qgKref5DHoT3HSHoJC+UrlbsAKky1iBcUGEATVpZHy0RugzIRww4x/PTn4MrfuUgLejWa5j0/YbT4OhkLmhVA9vxT2j9x+OH6D+ezoKjxF6iz9gXUEJwE5kQe65DoymtjcM+0IFxip0FDj5VCfxQ2n7wtigM2MhK0/OSaxSoyUp+Klv6TBU1x4bZOxUuEAiMmpSbL9ZhEsyFVtWvW9XpyFewJc+Pr/ScU2M7onbhZUs7CfKcqDjSvYC/JchntdbKSdaJdQbGy8793lpaQu6JWe3gTrYHuvrrHJN2jtfQ/EcqeLVHZNJcd0IFsccLvIPGsfxGvmErTNQXUU/hzcAfeuiuTzQ8cW0smmI56bntldPelayCZL4VZ1OlJQQ4Mq5BUmHPL5jG9ufXs3XK9ixP1D+QWDzabvvfCwlw6z8a9Uwv6nSflSnVaQOm3DoruISWtDc8o06pkrJZr64mt7Cd0wXNO2EHx9n/m0WmOaWj6b5IHmfTBaOzIZs/7PePk/lilsyheJyQsHpcYp9UvDREozw4Ndkml7hmt1/DYK1pHVadaXpa889KdSTnslC7XAPIbZPhThw0FsEnyVaMo0A7sJbLMG9yyYhQ+RFYdk+UhU5XH1bTrM2SkZq/K+uRjKThr5GRK7n+A1BLAwQUAAAICAAAWCHsKv0cf20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9QzNNNRUEovSizIKAaKGII4pZkpIHa0kmlyYqKBaVKaoYWZqWVKopluirlJUpKFsbmlmaF5apqFsVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAWCHsgPx5GzkCAADKBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAWCHsKv0cf20AAAB4AAAACQAkAAAAAAAAAAAAAACGAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAD4DAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -11259,7 +11300,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 4
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -11277,7 +11318,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   minAreaSize: 0
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
@@ -11286,7 +11327,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 0
+  showGraphs: 1
 --- !u!1001 &1729121083
 Prefab:
   m_ObjectHideFlags: 0
@@ -12993,7 +13034,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 929954669
+  randomSeed: 1596748548
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -16474,7 +16515,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1942937984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -17524,8 +17565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7485214876b044e1da198fbf07f4ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothSpeed: 0.5
-  playerFacingOffset: 2
+  smoothSpeed: 0.2
+  playerFacingOffset: 2.5
   playerMoving: 0
 --- !u!1001 &2106257164
 Prefab:

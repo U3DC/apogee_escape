@@ -18,9 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movement;
     private Rigidbody myRB;
     private SpriteRenderer playerSR;
-    private Interactive interactor;
-    private GameObject currentInteractor;
     private Animator[] playerSprites;
+    public bool inMenu = false;
 
     [Header("Flashlight")]
     public GameObject itemFlashlight;
@@ -38,16 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-        
         myRB = GetComponent<Rigidbody>();
         playerSprites = gameObject.GetComponentsInChildren<Animator>();
         itemFlashlightPos = itemFlashlight.transform.localPosition;
 
-
         air = timerController.GetComponent<CountdownAirSupply>();
-
         cold = timerController.GetComponent<CountdownTemperature>();
-
     }
 
     void FixedUpdate()
@@ -56,6 +51,11 @@ public class PlayerMovement : MonoBehaviour
         float lv = Sinput.GetAxisRaw("Vertical");
         Move(lh, lv);
 
+        FlashlightBob();
+    }
+
+    void CheckGrounded()
+    {
         if (Physics.Raycast(transform.position - new Vector3(0f, -0.5f, 0f), -transform.up, groundHitDistance))
         {
             isGrounded = true;
@@ -66,105 +66,91 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     void OnTriggerStay(Collider other)
     {
-
         if (other.gameObject.tag == "AirReplenish")
         {
             air.Replenish();
             Debug.Log("in the replenish zone");
             droneChoiceMenu.SetActive(false);
-            Time.timeScale = 1f;
         }
         if (other.gameObject.tag == "Heater")
         {
             cold.Replenish();
             Debug.Log("in the heat zone");
             droneChoiceMenu.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        if (other.gameObject.tag == "DroneZone")
-        {
-            droneChoiceMenu.SetActive(true);
-            Debug.Log("in the drone zone");
-        }
-        else
-        {
-            droneChoiceMenu.SetActive(false);
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        droneChoiceMenu.SetActive(false);
-        Time.timeScale = 1f;
+        if (other.gameObject.tag == "DroneZone")
+        {
+            DroneZone();
+        }
+    }
 
+    public void DroneZone()
+    {
+        if (droneChoiceMenu.activeSelf == false)
+        {
+            droneChoiceMenu.SetActive(true);
+            inMenu = true;
+            Debug.Log("in the drone zone");
+            Time.timeScale = 0.001f;
+        }
+        else
+        {
+            inMenu = false;
+            droneChoiceMenu.SetActive(false);
+            Debug.Log("leaving drone zone");
+            Time.timeScale = 1f;
+
+        }
     }
 
 
     void Move(float lh, float lv)
     {
-        movement.Set(lh, 0f, lv);
-        movement = Camera.main.transform.TransformDirection(movement);
-        movement.y = 0f;
-
-        if (Sinput.GetButtonDown("Jump") && isGrounded)
+        if (inMenu == false)
         {
-            Jump();
-        }
+            movement.Set(lh, 0f, lv);
+            movement = Camera.main.transform.TransformDirection(movement);
+            movement.y = 0f;
 
-        myRB.AddForce(movement * speed);
+            if (Sinput.GetButtonDown("Jump") && isGrounded)
+            {
+                Jump();
+            }
 
-        if (lh != 0f || lv != 0f)
-        {
-            Rotating(lh, lv);
-        }
-        if (myRB.velocity.magnitude > maxSpeed)
-        {
-            myRB.velocity = myRB.velocity.normalized * maxSpeed;
+            myRB.AddForce(movement * speed);
+
+            if (lh != 0f || lv != 0f)
+            {
+                Rotating(lh, lv);
+            }
+            if (myRB.velocity.magnitude > maxSpeed)
+            {
+                myRB.velocity = myRB.velocity.normalized * maxSpeed;
+            }
         }
     }
 
-    void Update()
+    void FlashlightBob()
     {
-        InteractiveCheck();
-        //flaslight bob
         itemFlashlight.transform.localPosition = new Vector3(itemFlashlight.transform.localPosition.x,
             itemFlashlightPos.y + Mathf.Clamp((Mathf.Sin(Time.time * flashlightBobVelocity)), flashlightBobAmount * -10, flashlightBobAmount * 10) * flashlightBobAmount,
             itemFlashlight.transform.localPosition.z);
-
-    }
-
-    void InteractiveCheck()
-    {
-        //Cast ray from player in forward direction
-        Ray ray = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward);
-        //If ray hits an object
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider.tag == "InteractiveObject" && hit.distance < 2.0f)
-            {
-                currentInteractor = hit.collider.gameObject;
-                hit.collider.gameObject.GetComponent<Interactive>().playersFocus = true;
-            }
-            else
-            {
-                if (currentInteractor != null)
-                {
-                    currentInteractor.GetComponent<Interactive>().playersFocus = false;
-                    currentInteractor = null;
-                }
-            }
-        }
     }
 
     void LateUpdate()
     {
-        moveVelocity = myRB.velocity.magnitude;//Mathf.Max(Mathf.Abs(myRB.velocity.normalized.x), Mathf.Abs(myRB.velocity.normalized.y));
+        moveVelocity = myRB.velocity.magnitude;
+        AnimationFacings();
 
+    }
+    void AnimationFacings()
+    {
         float angleLR = Vector3.Angle(Camera.main.transform.forward, gameObject.transform.right);
         float angleUD = Vector3.Angle(Camera.main.transform.forward, -gameObject.transform.forward);
         foreach (Animator playerSprites in playerSprites)
@@ -205,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);            
+        myRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     void Rotating(float lh, float lv)
@@ -216,5 +202,5 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<Rigidbody>().MoveRotation(newRotation);
     }
 
- 
+
 }

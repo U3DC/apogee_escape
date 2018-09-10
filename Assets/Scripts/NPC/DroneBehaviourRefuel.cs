@@ -64,14 +64,16 @@ public class DroneBehaviourRefuel : MonoBehaviour
 
         rockList = new List<GameObject>();
 
+        harvestOffset = new Vector3(0, harvestOffsetFloat, 0);
+        harvestParticles = GameObject.Find("harvestEffect");
+
         foreach (GameObject rockPrefabs in GameObject.FindGameObjectsWithTag("Rock"))
         {
             rockList.Add(rockPrefabs);
         }
         currentState = droneState.dropoff;
 
-        harvestOffset = new Vector3(0, harvestOffsetFloat, 0);
-        harvestParticles = GameObject.Find("harvestEffect");
+
         harvestParticles.SetActive(false);
 
 
@@ -81,8 +83,6 @@ public class DroneBehaviourRefuel : MonoBehaviour
     void SetRandomisations()
     {
         speed = Random.Range(minSpeed, maxSpeed);
-
-
 
         rockListNext = (Random.Range(0, rockList.Count));
         nextHarvestPoint = rockList[rockListNext].transform.position;
@@ -113,17 +113,17 @@ public class DroneBehaviourRefuel : MonoBehaviour
             harvestParticles.SetActive(false);
             StopCoroutine(HarvestTime());
             desiredPosition = Vector3.MoveTowards(gameObject.transform.position, ship.transform.position + harvestOffset, speed * Time.deltaTime);
-            if (Vector3.Distance(gameObject.transform.position, ship.transform.position + harvestOffset) < 0.1f)
+            if (Vector3.Distance(gameObject.transform.position, ship.transform.position + harvestOffset) < 0.05f)
             {
                 currentState = droneState.dropoff;
             }
         }
         if (currentState == droneState.dropoff)
         {
-            SetRandomisations();
             desiredPosition = Vector3.MoveTowards(gameObject.transform.position, ship.transform.position, (speed * upDownRate) * Time.deltaTime);
             if (Vector3.Distance(gameObject.transform.position, ship.transform.position) < 0.1f)
             {
+                SetRandomisations();
                 currentState = droneState.leaving;
             }
         }
@@ -137,20 +137,6 @@ public class DroneBehaviourRefuel : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * speed);
     }
 
-    //IEnumerator RateOfRepairTimer()
-    //{
-    //    Debug.Log("repair started");
-    //    currentState = droneState.repairing;
-    //    yield return new WaitForSeconds(timeToRepair);
-    //    repairStatus.repairDroneCompleted();
-    //    Debug.Log("repair done");
-
-    //    SetRandomisations();
-    //    currentState = droneState.lifting;
-    //    previousRepairPoint = gameObject.transform.position;
-    //    yield break;
-    //}
-
     IEnumerator HarvestTime()
     {
         while (true)
@@ -162,13 +148,13 @@ public class DroneBehaviourRefuel : MonoBehaviour
 
                 if (currentState != droneState.harvesting)
                 {
-                    harvestParticles.SetActive(true);
+                    harvestParticles.SetActive(false);
                 }
             }
             yield return new WaitForSeconds(harvestEffectInterval);
             harvestEffectEnabled = false;
             currentState = droneState.returning;
-            harvestParticles.SetActive(true);
+            harvestParticles.SetActive(false);
 
         }
     }
